@@ -21,21 +21,38 @@ class Point(object):
     def __str__(self):
         """Returns WKT String "POINT (x y)".
         """
+        return "POINT({0} {1}".format(self.x, self.y)
         pass
 
     def intersects(self, other):
         """Checks whether other shape has any interaction with
         interior or boundary of self shape. Uses type based dispatch.
-        
+
         other - Point, Circle or Rectangle
         
         returns - True / False
         """
+        if type(other) == Point:
+            if self.x == other.x and self.y == other.y:
+                return True
+            else:
+                return False
+        elif type(other) == Circle:
+            if math.sqrt((self.x-other.center.x)**2+(self.y-other.center.y)**2) <= other.radius:
+                return True
+            else:
+                return False
+        elif type(other) == Rectangle:
+            if other.ll.x <= self.x <= other.ur.x and other.ll.y <= self.y <= other.ur.y:
+                return True
+            else:
+                return False
         pass
 
     def distance(self, other):
         """Returns cartesian distance between self and other Point
         """
+        return math.sqrt((self.x-other.x)**2+(self.y-other.y)**2)
         pass
 
 
@@ -73,6 +90,30 @@ class Circle(object):
         
         Returns - True / False
         """
+
+        if type(other) == Circle:
+            if self.center.distance(other.center) <= self.radius+other.radius:
+                return True
+            else:
+                return False
+
+        elif type(other)==Point:
+            other.intersects(self)
+        elif type(other)==Rectangle:
+            # rec_center.x=(other.pt_ll.x+other.pt_ur.x)/2
+            # rec_center.y=(other.pt_ll.y+other.pt_ur.y)/2
+            # dis=self.center.distance(rec_center)
+            # 圆与矩形四个角点和四边是否相交
+            if self.center.distance(other.ll) <= self.radius or self.center.distance(other.ur) <= self.radius or \
+                math.sqrt((self.center.x - other.ll.x) ** 2 + (self.center.y - other.ur.y) ** 2) <= self.radius or \
+                math.sqrt((self.center.x - other.ur.x) ** 2 + (self.center.y - other.ll.y) ** 2) <= self.radius or \
+                abs(self.center.x-other.ll.x) < self.radius or abs(self.center.y-other.ll.y) < self.radius or \
+                abs(self.center.x - other.ur.x)<self.radius or abs(self.center.y - other.ur.y)<self.radius \
+               :
+                return True
+            else:
+                return False
+
         pass
 
 
@@ -90,6 +131,8 @@ class Rectangle(object):
     def __str__(self):
         """Returns WKT String "POLYGON ((x0 y0, x1 y1, ..., x0 y0))"
         """
+        return "POLYGON(({0} {1}, {2} {3}, {4} {5}, {6} {7}))".format(self.ll.x,self.ll.y,self.ll.x,self.ur.y, \
+        self.ur.x,self.ur.y,self.ur.x,self.ll.y)
         pass
 
     def intersects(self, other):
@@ -125,7 +168,7 @@ def _test():
     pt2 = Point(10, 10)
     assert pt0.intersects(pt1)
     assert pt1.intersects(pt0)
-    asse rt not pt0.intersects(pt2)
+    assert not pt0.intersects(pt2)
     assert not pt2.intersects(pt0)
 
     c = Circle(Point(-1, -1), 1)
@@ -138,4 +181,8 @@ def _test():
 
 if __name__ == "__main__":
     _test()
+    p_ll=Point(0,0)
+    p_ur=Point(1,1)
+    rec=Rectangle(p_ll,p_ur)
+    print(type(rec))
 
