@@ -16,17 +16,21 @@ def read(file_nm, no_strips):#文件名，数据分列的列数
     
     Returns - None or a StripStructure instance
     """
-    fPoint==open(file_nm,'r')
+    fPoint=open(file_nm,'r')
+    eachLine=fPoint.readline()
     for i in fPoint:
         if eachLine[0]=="#":
             continue
         else:
             print(i,"  ")
-            lines = fh.read().split("\n")
+            lines = fPoint.read().split("\n")
             for line in lines:
                 items = line.split()
                 temp = []
+                # 二维点范围
                 temp.append(float(items[0].strip()[0]), float(items[0].strip()[1]), float(items[0].strip()[3]), float(items[0].strip()[4]))
+                print(temp)
+                # 创建点集，挨个点赋读取的值
                 for pt in pts:
                     pt(float(item.strip()[0]), float(item.strip()[1]))
             sort(pts.x)
