@@ -18,29 +18,41 @@ def read(file_nm, no_strips):#文件名，数据分列的列数
     Returns - None or a StripStructure instance
     """
     fPoint=open(file_nm,'r')
-    eachLine=fPoint.readline()
-    for i in fPoint:
-        if eachLine[0]=="#":
+    lines=fPoint.readlines()
+    # print( Lines)
+    pts = []
+    extent=[]
+    for line in lines:
+        if line[0] == "#":
             continue
         else:
-            pts = []
-            print(i,"  ")
-            lines = fPoint.read().split("\n")
-            temp = []
-            for line in lines:
-                items = line.split()
 
-                # 二维点范围
-                temp=[float(items[0].strip()[0]), float(items[0].strip()[1]), float(items[0].strip()[3]), float(items[0].strip()[4])]
-                print(temp)
-                # 创建点集，挨个点赋读取的值
+            # print(line,"  ")
+            items=line.split()
+            if len(items)==4:
+                extent = [float(items[0]), float(items[1]), float(items[2]), float(items[3])]
+            else:
+                pt=Point(float(items[0]), float(items[1]))
+                print(pt)
+                pts.append(pt)
+    strc=StripStructure(extent,no_strips)
 
-                for pt in pts:
-                    for item in items:
-                        pt=Point(float(item[0]), float(item[1]))
-            struc=StripStructure(temp, no_strips)
-        fPoint.close()
-        return struc
+            # lines = fPoint.read().split("\n")
+            # temp = []
+            # for line in lines:
+            #     items = line.split()
+            #
+            #     # 二维点范围
+            #     temp=[float(items[0].strip()[0]), float(items[0].strip()[1]), float(items[0].strip()[3]), float(items[0].strip()[4])]
+            #     print(temp)
+            #     # 创建点集，挨个点赋读取的值
+            #
+            #     for pt in pts:
+            #         for item in items:
+            #             pt=Point(float(item[0]), float(item[1]))
+            # struc=StripStructure(temp, no_strips)
+    fPoint.close()
+    return strc
 
 
 
@@ -56,3 +68,4 @@ def dump(structure, strip_file_nm="strips.wkt", point_file_nm="points.wkt"):
     with open(point_file_nm, "w") as fh:
         fh.write(structure.dump_points())
 
+read('points2.txt',3)
