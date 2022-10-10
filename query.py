@@ -17,7 +17,27 @@ def parse(geom_str):
     
     Returns - Point, Circle, or Rectangle
     """
-    pass
+    geom_list=geom_str.split()
+    print(len(geom_list))
+    if geom_list[0]=='p' and len(geom_list)==3:
+        pt=Point(float(geom_list[1]),float(geom_list[2]))
+        print("是个点",pt.x,' ',pt.y)
+        return pt
+    elif geom_list[0]=='c' and len(geom_list)==4:
+        cir_center=Point(float(geom_list[1]),float(geom_list[2]))
+        cir_rad=float(geom_list[3])
+        cir=Circle(cir_center,cir_rad)
+        print("Circle!",cir.center.x,' ',cir.center.y,' ',cir.radius)
+        return cir
+    elif geom_list[0]=='r' and len(geom_list)==5:
+        rec_ll=Point(float(geom_list[1]),float(geom_list[2]))
+        rec_ur=Point(float(geom_list[3]),float(geom_list[4]))
+        rec=Rectangle(rec_ll,rec_ur)
+        return rec
+    else:
+        print("input format wrong!")
+        return 0
+
 
 
 def print_statistics(result):
@@ -29,6 +49,7 @@ def print_statistics(result):
     
     Returns - None
     """
+
     pass
 
 
@@ -85,3 +106,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    parse("c 2.0 3.0 5.5")
