@@ -98,7 +98,10 @@ class Circle(object):
                 return False
 
         elif type(other)==Point:
-            other.intersects(self)
+            if other.intersects(self):
+                return True
+            else:
+                return False
         elif type(other)==Rectangle:
             # rec_center.x=(other.pt_ll.x+other.pt_ur.x)/2
             # rec_center.y=(other.pt_ll.y+other.pt_ur.y)/2
@@ -114,7 +117,7 @@ class Circle(object):
             else:
                 return False
 
-        pass
+
 
 
 class Rectangle(object):
@@ -138,26 +141,43 @@ class Rectangle(object):
     def intersects(self, other):
         """Checks whether other shape has any interaction with
         interior or boundary of self shape. Uses type based dispatch.
-        
+
         other - Point, Circle or Rectangle
         
         Returns - True / False
         """
-        pass
+        if type(other)==Point:
+            if other.intersects(self):
+                return True
+            else:
+                return False
+        elif type(other)==Circle:
+            if other.intersects((self)):
+                return True
+            else:
+                return False
+        elif type(other)==type(self):
+            if self.ll.x<other.ur.x or self.ll.y<other.ur.y or other.ll.x<self.ur.x or other.ll.y<self.ur.y :
+                return True
+            else:
+                return False
+
 
     def width(self):
         """Returns the width of the Rectangle.
         
         Returns - float
         """
-        pass
+        return self.ur.x-self.ll.x
+
 
     def height(self):
         """Returns the height of the Rectangle.
         
         Returns - float
         """
-        pass
+        return self.ur.y-self.ll.y
+
 
 
 def _test():
@@ -185,4 +205,12 @@ if __name__ == "__main__":
     p_ur=Point(1,1)
     rec=Rectangle(p_ll,p_ur)
     print(type(rec))
+    C1=Circle(p_ur,5)
+    if rec.intersects(C1):
+        print('Yeah!')
+    elif rec.intersects(C1) is False:
+        print("No!")
+    else :
+        print('What?')
+    print(rec.intersects(C1))
 
