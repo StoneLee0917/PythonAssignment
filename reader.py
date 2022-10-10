@@ -1,6 +1,7 @@
 # GEO1000 - Assignment 3
 # Authors:
 # Studentnumbers:
+from numpy import sort
 
 from geometry import Point, Rectangle, Circle
 from strips import StripStructure
@@ -22,20 +23,25 @@ def read(file_nm, no_strips):#文件名，数据分列的列数
         if eachLine[0]=="#":
             continue
         else:
+            pts = []
             print(i,"  ")
             lines = fPoint.read().split("\n")
+            temp = []
             for line in lines:
                 items = line.split()
-                temp = []
+
                 # 二维点范围
-                temp.append(float(items[0].strip()[0]), float(items[0].strip()[1]), float(items[0].strip()[3]), float(items[0].strip()[4]))
+                temp=[float(items[0].strip()[0]), float(items[0].strip()[1]), float(items[0].strip()[3]), float(items[0].strip()[4])]
                 print(temp)
                 # 创建点集，挨个点赋读取的值
+
                 for pt in pts:
-                    pt(float(item.strip()[0]), float(item.strip()[1]))
-            sort(pts.x)
+                    for item in items:
+                        pt=Point(float(item[0]), float(item[1]))
+            struc=StripStructure(temp, no_strips)
         fPoint.close()
-    pass
+        return struc
+
 
 
 def dump(structure, strip_file_nm="strips.wkt", point_file_nm="points.wkt"):

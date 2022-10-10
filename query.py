@@ -49,7 +49,17 @@ def print_statistics(result):
     
     Returns - None
     """
-
+    print(len(result))
+    x_cor=[]
+    # 将x坐标放入list里排序，再用if和最左最右x坐标回找点及其id
+    for i in result:
+        x_cor.append(i.x)
+    print(sorted(x_cor))
+    for i in result:
+        if i.x==sorted(x_cor)[0]:
+            print("left  ",i.x,' ',i.y, ' ',id(i))
+        elif i.x==sorted(x_cor)[len(result)-1]:
+            print("right  ",i.x,' ',i.y,' ',id(i))
     pass
 
 
@@ -96,6 +106,7 @@ def main():
         elif in_str.startswith("open"):
             filenm, nstrips = in_str.replace("open ", "").split(" into ")
             structure = read(filenm, int(nstrips))
+
             structure.print_strip_statistics()
         elif in_str.startswith("p") or in_str.startswith("c") or in_str.startswith("r"):
             if structure is None:

@@ -21,7 +21,7 @@ class Point(object):
     def __str__(self):
         """Returns WKT String "POINT (x y)".
         """
-        return "POINT({0} {1}".format(self.x, self.y)
+        return "POINT({0} {1})".format(self.x, self.y)
         pass
 
     def intersects(self, other):
@@ -134,7 +134,7 @@ class Rectangle(object):
     def __str__(self):
         """Returns WKT String "POLYGON ((x0 y0, x1 y1, ..., x0 y0))"
         """
-        return "POLYGON(({0} {1}, {2} {3}, {4} {5}, {6} {7}))".format(self.ll.x,self.ll.y,self.ll.x,self.ur.y, \
+        return "POLYGON(({0} {1}, {2} {3}, {4} {5}, {6} {7},{0} {1}))".format(self.ll.x,self.ll.y,self.ll.x,self.ur.y, \
         self.ur.x,self.ur.y,self.ur.x,self.ll.y)
         pass
 
@@ -204,8 +204,10 @@ if __name__ == "__main__":
     p_ll=Point(0,0)
     p_ur=Point(1,1)
     rec=Rectangle(p_ll,p_ur)
+    print(rec.__str__())
     print(type(rec))
     C1=Circle(p_ur,5)
+    print(C1.__str__())
     if rec.intersects(C1):
         print('Yeah!')
     elif rec.intersects(C1) is False:
