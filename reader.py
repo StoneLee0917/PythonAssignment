@@ -66,8 +66,8 @@ def dump(structure, strip_file_nm="strips.wkt", point_file_nm="points.wkt"):
     Returns - None
     """
     with open(strip_file_nm, "w") as fh:
-        fh.write(structure.dump_strips())
+        fh.write(structure.dumps_strips())
     with open(point_file_nm, "w") as fh:
-        fh.write(structure.dump_points())
+        fh.write(structure.dumps_points())
 
 read('points2.txt',3)

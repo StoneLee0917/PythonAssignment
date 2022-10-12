@@ -2,7 +2,7 @@
 # Authors:
 # Studentnumbers:
 
-from reader import read
+from reader import read, dump
 from geometry import Rectangle, Circle, Point
 from os.path import basename
 
@@ -98,6 +98,7 @@ def main():
         in_str = input("your command>>>\n").lower()
         if in_str.startswith("quit"):#判断用户输入的字符串0是否以quit开始
             print("Bye, bye.")
+
             return
         elif in_str.startswith("help"):
             print_help()
@@ -111,6 +112,7 @@ def main():
                 print("No points read yet, open a file first!")
             else:
                 print_statistics(structure.query(parse(in_str)))
+                dump(structure, "strips.wkt", "points.wkt")
 
 
 if __name__ == "__main__":
