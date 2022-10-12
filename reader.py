@@ -1,6 +1,6 @@
 # GEO1000 - Assignment 3
-# Authors:
-# Studentnumbers:
+# Authors:Qiuxian Wei
+# Studentnumbers:5801737
 
 from geometry import Point, Rectangle, Circle
 from strips import StripStructure
@@ -16,7 +16,25 @@ def read(file_nm, no_strips):
     
     Returns - None or a StripStructure instance
     """
-    pass
+    fh = open(file_nm, "r")
+    lines = fh.read().strip().split("\n")
+    strip = None
+    has_point = False
+    for line in lines:
+        if line[0] == '#':
+            continue
+        else:
+            elems = line.split(" ")
+            if len(elems) == 4:  # extent
+                extent = [float(x) for x in elems]
+                strip = StripStructure(extent, no_strips)
+            else:  # point
+                has_point = True
+                strip.append_point(Point(float(elems[0]), float(elems[1])))
+    if not has_point:
+        return None
+    return strip
+
 
 
 def dump(structure, strip_file_nm="strips.wkt", point_file_nm="points.wkt"):
