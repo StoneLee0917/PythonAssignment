@@ -18,16 +18,16 @@ def parse(geom_str):
     Returns - Point, Circle, or Rectangle
     """
     geom_list=geom_str.split()
-    print(len(geom_list))
+    # print(len(geom_list))
     if geom_list[0]=='p' and len(geom_list)==3:
         pt=Point(float(geom_list[1]),float(geom_list[2]))
-        print("是个点",pt.x,' ',pt.y)
+        # print("是个点",pt.x,' ',pt.y)
         return pt
     elif geom_list[0]=='c' and len(geom_list)==4:
         cir_center=Point(float(geom_list[1]),float(geom_list[2]))
         cir_rad=float(geom_list[3])
         cir=Circle(cir_center,cir_rad)
-        print("Circle!",cir.center.x,' ',cir.center.y,' ',cir.radius)
+        # print("Circle!",cir.center.x,' ',cir.center.y,' ',cir.radius)
         return cir
     elif geom_list[0]=='r' and len(geom_list)==5:
         rec_ll=Point(float(geom_list[1]),float(geom_list[2]))
@@ -54,14 +54,12 @@ def print_statistics(result):
     # 将x坐标放入list里排序，再用if和最左最右x坐标回找点及其id
     for i in result:
         x_cor.append(i.x)
-    print(sorted(x_cor))
+    # print(sorted(x_cor))
     for i in result:
         if i.x==sorted(x_cor)[0]:
             print("left  ",i.x,' ',i.y, ' ',id(i))
         elif i.x==sorted(x_cor)[len(result)-1]:
             print("right  ",i.x,' ',i.y,' ',id(i))
-    pass
-
 
 def print_help():
     """Prints a help message to the user, what can be done with the program.

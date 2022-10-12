@@ -33,9 +33,11 @@ def read(file_nm, no_strips):#文件名，数据分列的列数
                 extent = [float(items[0]), float(items[1]), float(items[2]), float(items[3])]
             else:
                 pt=Point(float(items[0]), float(items[1]))
-                print(pt)
+                # print(pt)
                 pts.append(pt)
     strc=StripStructure(extent,no_strips)
+    for i in pts:
+        strc.append_point(i)
 
             # lines = fPoint.read().split("\n")
             # temp = []

@@ -22,7 +22,7 @@ class Point(object):
         """Returns WKT String "POINT (x y)".
         """
         return "POINT({0} {1})".format(self.x, self.y)
-        pass
+
 
     def intersects(self, other):
         """Checks whether other shape has any interaction with
@@ -47,13 +47,13 @@ class Point(object):
                 return True
             else:
                 return False
-        pass
+
 
     def distance(self, other):
         """Returns cartesian distance between self and other Point
         """
         return math.sqrt((self.x-other.x)**2+(self.y-other.y)**2)
-        pass
+
 
 
 class Circle(object):
@@ -136,7 +136,6 @@ class Rectangle(object):
         """
         return "POLYGON(({0} {1}, {2} {3}, {4} {5}, {6} {7},{0} {1}))".format(self.ll.x,self.ll.y,self.ll.x,self.ur.y, \
         self.ur.x,self.ur.y,self.ur.x,self.ll.y)
-        pass
 
     def intersects(self, other):
         """Checks whether other shape has any interaction with
