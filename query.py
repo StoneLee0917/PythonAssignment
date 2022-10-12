@@ -1,6 +1,6 @@
 # GEO1000 - Assignment 3
-# Authors:
-# Studentnumbers:
+# Authors:Qiuxian Wei
+# Studentnumbers:5801737
 
 from reader import read
 from geometry import Rectangle, Circle, Point
@@ -17,7 +17,15 @@ def parse(geom_str):
     
     Returns - Point, Circle, or Rectangle
     """
-    pass
+    if geom_str[0] == "p":
+        temp = geom_str.split(" ")
+        return Point(float(temp[1]), float(temp[2]))
+    elif geom_str[0] == "c":
+        temp = geom_str.split(" ")
+        return Circle(Point(float(temp[1]), float(temp[2])), float(temp[3]))
+    else:
+        temp = geom_str.split(" ")
+        return Rectangle(Point(float(temp[1]), float(temp[2])),Point(float(temp[3]), float(temp[4])))
 
 
 def print_statistics(result):
@@ -29,7 +37,12 @@ def print_statistics(result):
     
     Returns - None
     """
-    pass
+    print(f"({len(result)} point(s))")
+    print(f"(leftmost: POINT {result[0]} id: {id(result[0])} )")
+    print(f"(rightmost: POINT {result[-1]} id: {id(result[-1])} )")
+
+
+
 
 
 def print_help():
