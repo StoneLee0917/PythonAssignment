@@ -107,15 +107,24 @@ class Circle(object):
             # rec_center.y=(other.pt_ll.y+other.pt_ur.y)/2
             # dis=self.center.distance(rec_center)
             # 圆与矩形四个角点和四边是否相交
-            if self.center.distance(other.ll) <= self.radius or self.center.distance(other.ur) <= self.radius or \
-                math.sqrt((self.center.x - other.ll.x) ** 2 + (self.center.y - other.ur.y) ** 2) <= self.radius or \
-                math.sqrt((self.center.x - other.ur.x) ** 2 + (self.center.y - other.ll.y) ** 2) <= self.radius or \
-                abs(self.center.x-other.ll.x) < self.radius or abs(self.center.y-other.ll.y) < self.radius or \
-                abs(self.center.x - other.ur.x)<self.radius or abs(self.center.y - other.ur.y)<self.radius \
-               :
-                return True
-            else:
-                return False
+
+
+                # return True
+            pt_1 = Point(other.ll.x, other.ur.y)
+            pt_2 = Point(other.ur.x, other.ll.y)
+            c1 = Circle(pt_1, self.radius)
+            c2 = Circle(other.ll, self.radius)
+            c3 = Circle(other.ur, self.radius)
+            c4 = Circle(pt_2, self.radius)
+            r1 = Rectangle(Point(other.ll.x - self.radius, other.ll.y), pt_1)
+            r2 = Rectangle(pt_1, Point(other.ur.x, other.ur.y + self.radius))
+            r3 = Rectangle(pt_2, Point(other.ur.x + self.radius, other.ur.y))
+            r4 = Rectangle(Point(other.ll.x, other.ll.y - self.radius), pt_2)
+            return self.center.intersects(c1) or self.center.intersects(c2) or self.center.intersects(
+                c3) or self.center.intersects(c4) or self.center.intersects(r1) or self.center.intersects(r2) \
+                   or self.center.intersects(r3) or self.center.intersects(r4) or self.center.intersects(other)
+            # else:
+            #     return False
 
 
 
@@ -203,7 +212,8 @@ if __name__ == "__main__":
     p_ll=Point(0,0)
     p_ur=Point(1,1)
     rec=Rectangle(p_ll,p_ur)
-    print(rec.__str__())
+    # print(rec.__str__())
+    print(str(rec))
     print(type(rec))
     C1=Circle(p_ur,5)
     print(C1.__str__())
