@@ -115,6 +115,7 @@ def main():
                 dump(structure, "strips.wkt", "points.wkt")
 
 
+
 if __name__ == "__main__":
     main()
     parse("c 2.0 3.0 5.5")

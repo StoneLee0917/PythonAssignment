@@ -1,7 +1,7 @@
 # GEO1000 - Assignment 3
 # Authors:
 # Studentnumbers:
-from numpy import sort
+
 
 from geometry import Point, Rectangle, Circle
 from strips import StripStructure

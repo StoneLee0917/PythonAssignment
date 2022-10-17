@@ -88,8 +88,13 @@ class StripStructure(object):
         Returns - None
         """
         print(f"{len(self.strips)}")
-        for (i, s) in enumerate(self.strips):
-            print("#" f"{i + 1} with {len(s.points)} points, ll: POINT {s.rect.ll}, ur: POINT {s.rect.ur}")
+
+        for i, s in enumerate(self.strips):
+            print("#" f"{i + 1} with {len(s.points)} points, ll: {s.rect.ll}, ur: {s.rect.ur}")
+        # i=0
+        # for s in self.strips:
+        #     print("#" f"{i + 1} with {len(s.points)} points, ll: {s.rect.ll}, ur: {s.rect.ur}")
+        #     i=i+1
 
     def dumps_strips(self):
         """Dumps the strips of this structure to a str,
