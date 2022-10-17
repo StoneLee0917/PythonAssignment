@@ -209,19 +209,5 @@ def _test():
 
 if __name__ == "__main__":
     _test()
-    p_ll=Point(0,0)
-    p_ur=Point(1,1)
-    rec=Rectangle(p_ll,p_ur)
-    # print(rec.__str__())
-    print(str(rec))
-    print(type(rec))
-    C1=Circle(p_ur,5)
-    print(C1.__str__())
-    if rec.intersects(C1):
-        print('Yeah!')
-    elif rec.intersects(C1) is False:
-        print("No!")
-    else :
-        print('What?')
-    print(rec.intersects(C1))
+
 
